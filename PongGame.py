@@ -26,6 +26,9 @@ opponent = pygame.Rect(10,screen_height/2 -70,10,140)
 bg_color = pygame.Color('grey12')#pass the string name of a color from available color names
 light_grey = (200,200,200)#set a 'RGB' color value
 
+ball_speed_x = 7
+ball_speed_y = 7
+
 while True:#A loop that runs while condition is true
     #Handling input:
     for event in pygame.event.get():#For every event from the pygame events list
@@ -34,6 +37,14 @@ while True:#A loop that runs while condition is true
             #Both methods reliably close the game
             pygame.quit()#Then quit the game
             sys.exit()#Close the game window
+    
+    ball.x += ball_speed_x
+    ball.y += ball_speed_y
+
+    if ball.top <= 0 or ball.bottom >= screen_height:
+        ball_speed_y *= -1
+    if ball.left <= 0 or ball.right>= screen_width:
+        ball_speed_x *= -1
     
     #Visuals by 'pygame.draw(surface, color, rect)'
     screen.fill(bg_color)#Draws the background
