@@ -2,8 +2,9 @@
 import pygame, sys
 
 def ball_animation():
+    #Set those variables to be 'global' to be recognized throughout the code
     global ball_speed_x, ball_speed_y
-    #For each cycle of loop, the ball has +7 to W and H speed:
+    #The ball gain +7 to W and H speed:
     ball.x += ball_speed_x
     ball.y += ball_speed_y
 
@@ -57,6 +58,7 @@ while True:#A loop that runs while condition is true
             pygame.quit()#Then quit the game
             sys.exit()#Close the game window
 
+    #For each cycle of loop, call the 'ball_animation' function:
     ball_animation()
     
     #Visuals by 'pygame.draw(surface, color, rect)'
