@@ -22,6 +22,13 @@ def ball_animation():
         #Then reverse the ball speed in 'x' axis:
         ball_speed_x *= -1
 
+def player_animation():
+    player.y += player_speed
+    if player.top <= 0:
+        player.top = 0
+    if player.bottom >= screen_height:
+        player.bottom = screen_height
+
 #General setup:
 pygame.init()#Initiates all the pygame modules
 
@@ -72,8 +79,7 @@ while True:#A loop that runs while condition is true
 
     #For each cycle of loop, call the 'ball_animation' function:
     ball_animation()
-    player.y += player_speed
-    
+    player_animation()
     #Visuals by 'pygame.draw(surface, color, rect)'
     screen.fill(bg_color)#Draws the background
     pygame.draw.rect(screen, light_grey, player)#Draw the player reactangle
