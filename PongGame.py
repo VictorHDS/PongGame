@@ -31,14 +31,16 @@ def player_animation():
         player.bottom = screen_height#Then the player stop at last px on bottom
 
 def opponent_ai():
-    if opponent.top < ball.y:
-        opponent.top += opponent_speed
-    if opponent.bottom > ball.y:
-        opponent.bottom -= opponent_speed
-    if opponent.top < 0:
-        opponent.top = 0
-    if opponent.bottom > screen_height:
-        opponent.bottom = screen_height
+    #Opponent movement:
+    if opponent.top < ball.y:#If the opponent is above the ball
+        opponent.top += opponent_speed#Increase speed to down
+    if opponent.bottom > ball.y:#If the opponent is under the ball
+        opponent.bottom -= opponent_speed#Decrease speed to up
+    #Opponent bounds:
+    if opponent.top < 0:#If opponent surpass the top
+        opponent.top = 0#Stop at '0'px
+    if opponent.bottom > screen_height:#If opponent surpass the bottom
+        opponent.bottom = screen_height#Stop at last px
 
 #General setup:
 pygame.init()#Initiates all the pygame modules
@@ -68,7 +70,7 @@ light_grey = (200,200,200)#set a 'RGB' color value
 ball_speed_x = 7#Horizontal speed of the ball
 ball_speed_y = 7#Vertical speed of the ball
 player_speed = 0#The player initial speed
-opponent_speed = 7
+opponent_speed = 7#The Opponent speed
 
 while True:#A loop that runs while condition is true
     #Handling input:
@@ -89,11 +91,9 @@ while True:#A loop that runs while condition is true
             if event.key == pygame.K_UP:#If this key is the 'up arrow'
                 player_speed +=7#reset the shift to up
 
-    #For each cycle of loop, call the 'ball_animation' function:
-    ball_animation()
-    #For each cycle of loop, call the 'player_animation' function:
-    player_animation()
-    opponent_ai()
+    ball_animation()#Calls the 'ball_animation' function
+    player_animation()#Calls the 'player_animation' function
+    opponent_ai()#Calls the 'opponent_ai' function
 
     #Visuals by 'pygame.draw(surface, color, rect)'
     screen.fill(bg_color)#Draws the background
