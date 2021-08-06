@@ -26,8 +26,8 @@ opponent = pygame.Rect(10,screen_height/2 -70,10,140)
 bg_color = pygame.Color('grey12')#pass the string name of a color from available color names
 light_grey = (200,200,200)#set a 'RGB' color value
 
-ball_speed_x = 7
-ball_speed_y = 7
+ball_speed_x = 7#Horizontal speed of the ball
+ball_speed_y = 7#Vertical speed of the ball
 
 while True:#A loop that runs while condition is true
     #Handling input:
@@ -38,12 +38,18 @@ while True:#A loop that runs while condition is true
             pygame.quit()#Then quit the game
             sys.exit()#Close the game window
     
+    #For each cycle of loop, the ball has +7 to W and H speed:
     ball.x += ball_speed_x
     ball.y += ball_speed_y
 
+    #Bouncy:
+    #If the ball is full on top or full on bottom:
     if ball.top <= 0 or ball.bottom >= screen_height:
+        #Then reverse the ball speed in 'y' axis:
         ball_speed_y *= -1
+    #If the ball is full on left or full on right:
     if ball.left <= 0 or ball.right>= screen_width:
+        #Then reverse the ball speed in 'x' axis:
         ball_speed_x *= -1
     
     #Visuals by 'pygame.draw(surface, color, rect)'
