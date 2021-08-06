@@ -17,8 +17,9 @@ def ball_animation():
     if ball.left <= 0 or ball.right>= screen_width:
         #Then reverse the ball speed in 'x' axis:
         ball_speed_x *= -1
-    
+    #If the ball collides with player or opponent:
     if ball.colliderect(player) or ball.colliderect(opponent):
+        #Then reverse the ball speed in 'x' axis:
         ball_speed_x *= -1
 
 #General setup:
@@ -58,16 +59,16 @@ while True:#A loop that runs while condition is true
             #Both methods reliably close the game
             pygame.quit()#Then quit the game
             sys.exit()#Close the game window
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_DOWN:
-                player_speed +=7
-            if event.key == pygame.K_UP:
-                player_speed -=7
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_DOWN:
-                player_speed -=7
-            if event.key == pygame.K_UP:
-                player_speed +=7
+        if event.type == pygame.KEYDOWN:#If the user holds down a key
+            if event.key == pygame.K_DOWN:#If this key is the 'down arrow'
+                player_speed +=7#increase speed by 7
+            if event.key == pygame.K_UP:#If this key is the 'up arrow'
+                player_speed -=7#decrease speed by 7
+        if event.type == pygame.KEYUP:#If the user releases a key
+            if event.key == pygame.K_DOWN:#If this key is the 'down arrow'
+                player_speed -=7#reset the shift to down
+            if event.key == pygame.K_UP:#If this key is the 'up arrow'
+                player_speed +=7#reset the shift to up
 
     #For each cycle of loop, call the 'ball_animation' function:
     ball_animation()
