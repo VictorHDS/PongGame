@@ -1,6 +1,25 @@
 #Import 'pygame' to create a game, and 'sys' to access other system functions from the computer itself:
 import pygame, sys
 
+def ball_animation():
+    global ball_speed_x, ball_speed_y
+    #For each cycle of loop, the ball has +7 to W and H speed:
+    ball.x += ball_speed_x
+    ball.y += ball_speed_y
+
+    #Bouncy:
+    #If the ball is full on top or full on bottom:
+    if ball.top <= 0 or ball.bottom >= screen_height:
+        #Then reverse the ball speed in 'y' axis:
+        ball_speed_y *= -1
+    #If the ball is full on left or full on right:
+    if ball.left <= 0 or ball.right>= screen_width:
+        #Then reverse the ball speed in 'x' axis:
+        ball_speed_x *= -1
+    
+    if ball.colliderect(player) or ball.colliderect(opponent):
+        ball_speed_x *= -1
+
 #General setup:
 pygame.init()#Initiates all the pygame modules
 
@@ -37,20 +56,8 @@ while True:#A loop that runs while condition is true
             #Both methods reliably close the game
             pygame.quit()#Then quit the game
             sys.exit()#Close the game window
-    
-    #For each cycle of loop, the ball has +7 to W and H speed:
-    ball.x += ball_speed_x
-    ball.y += ball_speed_y
 
-    #Bouncy:
-    #If the ball is full on top or full on bottom:
-    if ball.top <= 0 or ball.bottom >= screen_height:
-        #Then reverse the ball speed in 'y' axis:
-        ball_speed_y *= -1
-    #If the ball is full on left or full on right:
-    if ball.left <= 0 or ball.right>= screen_width:
-        #Then reverse the ball speed in 'x' axis:
-        ball_speed_x *= -1
+    ball_animation()
     
     #Visuals by 'pygame.draw(surface, color, rect)'
     screen.fill(bg_color)#Draws the background
