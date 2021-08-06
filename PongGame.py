@@ -2,7 +2,7 @@
 import pygame, sys
 
 def ball_animation():
-    #Set those variables to be 'global' to be recognized throughout the code
+    #Set these variables to be 'global' to be recognized throughout the code
     global ball_speed_x, ball_speed_y
     #The ball gain +7 to W and H speed:
     ball.x += ball_speed_x
@@ -48,6 +48,7 @@ light_grey = (200,200,200)#set a 'RGB' color value
 
 ball_speed_x = 7#Horizontal speed of the ball
 ball_speed_y = 7#Vertical speed of the ball
+player_speed = 0
 
 while True:#A loop that runs while condition is true
     #Handling input:
@@ -57,9 +58,20 @@ while True:#A loop that runs while condition is true
             #Both methods reliably close the game
             pygame.quit()#Then quit the game
             sys.exit()#Close the game window
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_DOWN:
+                player_speed +=7
+            if event.key == pygame.K_UP:
+                player_speed -=7
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_DOWN:
+                player_speed -=7
+            if event.key == pygame.K_UP:
+                player_speed +=7
 
     #For each cycle of loop, call the 'ball_animation' function:
     ball_animation()
+    player.y += player_speed
     
     #Visuals by 'pygame.draw(surface, color, rect)'
     screen.fill(bg_color)#Draws the background
