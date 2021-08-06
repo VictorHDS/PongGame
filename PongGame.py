@@ -23,11 +23,12 @@ def ball_animation():
         ball_speed_x *= -1
 
 def player_animation():
+    #Increase speed in the 'y' axis of the player:
     player.y += player_speed
-    if player.top <= 0:
-        player.top = 0
-    if player.bottom >= screen_height:
-        player.bottom = screen_height
+    if player.top <= 0:#If the player position is on the full top
+        player.top = 0#Then the player stop at '0'px on top
+    if player.bottom >= screen_height:#If the player position is on the full bottom
+        player.bottom = screen_height#Then the player stop at last px on bottom
 
 #General setup:
 pygame.init()#Initiates all the pygame modules
@@ -56,7 +57,7 @@ light_grey = (200,200,200)#set a 'RGB' color value
 
 ball_speed_x = 7#Horizontal speed of the ball
 ball_speed_y = 7#Vertical speed of the ball
-player_speed = 0
+player_speed = 0#The player initial speed
 
 while True:#A loop that runs while condition is true
     #Handling input:
@@ -79,6 +80,7 @@ while True:#A loop that runs while condition is true
 
     #For each cycle of loop, call the 'ball_animation' function:
     ball_animation()
+    #For each cycle of loop, call the 'player_animation' function:
     player_animation()
     #Visuals by 'pygame.draw(surface, color, rect)'
     screen.fill(bg_color)#Draws the background
