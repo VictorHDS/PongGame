@@ -1,5 +1,5 @@
-#Import 'pygame' to create a game, and 'sys' to access other system functions from the computer itself:
-import pygame, sys
+#Import 'pygame' to create a game, 'sys' to access other system functions from the computer itself, and 'random' to randomize things (variables generation, ranges, sequences etc):
+import pygame, sys, random
 
 def ball_animation():
     #Set these variables to be 'global' to be recognized throughout the code
@@ -16,7 +16,7 @@ def ball_animation():
     #If the ball is full on left or full on right:
     if ball.left <= 0 or ball.right>= screen_width:
         #Then reverse the ball speed in 'x' axis:
-        ball_speed_x *= -1
+        ball_restart()
     #If the ball collides with player or opponent:
     if ball.colliderect(player) or ball.colliderect(opponent):
         #Then reverse the ball speed in 'x' axis:
@@ -41,6 +41,15 @@ def opponent_ai():
         opponent.top = 0#Stop at '0'px
     if opponent.bottom > screen_height:#If opponent surpass the bottom
         opponent.bottom = screen_height#Stop at last px
+
+def ball_restart():
+    #Set these variables to be 'global' to be recognized throughout the code
+    global ball_speed_x, ball_speed_y
+    #Return the ball to the center of the screen whenever restart:
+    ball.center = (screen_width/2, screen_height/2)
+    #Always after ball restart to the center, it'll have speed changed by + or - in both axis, randomly:
+    ball_speed_x *= random.choice((1,-1))
+    ball_speed_y *= random.choice((1,-1))
 
 #General setup:
 pygame.init()#Initiates all the pygame modules
@@ -67,8 +76,8 @@ opponent = pygame.Rect(10,screen_height/2 -70,10,140)
 bg_color = pygame.Color('grey12')#pass the string name of a color from available color names
 light_grey = (200,200,200)#set a 'RGB' color value
 
-ball_speed_x = 7#Horizontal speed of the ball
-ball_speed_y = 7#Vertical speed of the ball
+ball_speed_x = 7 * random.choice((1,-1))#Initial position of the ball in horizontal. Randomize whenever reset
+ball_speed_y = 7 * random.choice((1,-1))#Initial position of the ball in vertical. Randomize whenever reset
 player_speed = 0#The player initial speed
 opponent_speed = 7#The Opponent speed
 
