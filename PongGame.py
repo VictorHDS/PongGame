@@ -30,6 +30,16 @@ def player_animation():
     if player.bottom >= screen_height:#If the player position is on the full bottom
         player.bottom = screen_height#Then the player stop at last px on bottom
 
+def opponent_ai():
+    if opponent.top < ball.y:
+        opponent.top += opponent_speed
+    if opponent.bottom > ball.y:
+        opponent.bottom -= opponent_speed
+    if opponent.top < 0:
+        opponent.top = 0
+    if opponent.bottom > screen_height:
+        opponent.bottom = screen_height
+
 #General setup:
 pygame.init()#Initiates all the pygame modules
 
@@ -58,6 +68,7 @@ light_grey = (200,200,200)#set a 'RGB' color value
 ball_speed_x = 7#Horizontal speed of the ball
 ball_speed_y = 7#Vertical speed of the ball
 player_speed = 0#The player initial speed
+opponent_speed = 7
 
 while True:#A loop that runs while condition is true
     #Handling input:
@@ -82,6 +93,8 @@ while True:#A loop that runs while condition is true
     ball_animation()
     #For each cycle of loop, call the 'player_animation' function:
     player_animation()
+    opponent_ai()
+
     #Visuals by 'pygame.draw(surface, color, rect)'
     screen.fill(bg_color)#Draws the background
     pygame.draw.rect(screen, light_grey, player)#Draw the player reactangle
