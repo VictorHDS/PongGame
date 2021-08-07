@@ -6,4 +6,5 @@
 * Ball animation and screen bounds/colision;
 * Player command inputs;
 * Opponent 'AI';
-* Basic Scoring.
+* Basic Scoring;
+* Timer;
