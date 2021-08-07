@@ -16,11 +16,15 @@ def ball_animation():
     
     if ball.left <= 0:#If the ball is full on left
         player_score += 1#Increase the player score by 1
-        score_time = pygame.time.get_ticks()
+
+        #Get an integer that tells for how long the game has benn running since it was started:
+        score_time = pygame.time.get_ticks()#This score time is only going to run once (stays the same)
 
     if ball.right >= screen_width:#If the ball is full on right
         opponent_score += 1#Increase the opponent score by 1
-        score_time = pygame.time.get_ticks()
+
+        #Get an integer that tells for how long the game has benn running since it was started:
+        score_time = pygame.time.get_ticks()#This score time is only going to run once (stays the same)
 
     #If the ball collides with player or opponent:
     if ball.colliderect(player) or ball.colliderect(opponent):
@@ -51,18 +55,18 @@ def ball_restart():
     #Set these variables to be 'global' to be recognized throughout the code
     global ball_speed_x, ball_speed_y, score_time
     
-    current_time = pygame.time.get_ticks()
-    
+    #Makes this function restarts again after a couple of seconds
+    #Then once it is greater than this amount of time, it sets the score time variable back to 'none'
+    current_time = pygame.time.get_ticks()#This score time gets what current time are on right now (is going to get greater)
     #Return the ball to the center of the screen whenever restart:
     ball.center = (screen_width/2, screen_height/2)
-    
-    if current_time - score_time < 2100:
-        ball_speed_x, ball_speed_y = 0, 0
-    else:
+    if current_time - score_time < 2100:#If the current time minus the score time is smaller that 2.1 seconds
+        ball_speed_x, ball_speed_y = 0, 0#Then the ball speed is 0 in both axis (so the ball just stays in the middle of the screen)
+    else:#If the difference is greater than 2.1s
          #Always after ball restart to the center, it'll have speed changed by + or - in both axis, randomly:
          ball_speed_x = 7 * random.choice((1,-1))
          ball_speed_y = 7 * random.choice((1,-1))
-         score_time = None
+         score_time = None#score time get back to 'none'
 
 #General setup:
 pygame.init()#Initiates all the pygame modules
@@ -102,7 +106,7 @@ opponent_score = 0#The initial value of the opponent's score is 0
 game_font = pygame.font.Font("freesansbold.ttf",32)#Creates the font for the texts, with the style and font size
 
 #Score Timer:
-score_time = None
+score_time = None#Initialy doesn't do anything
 
 while True:#A loop that runs while condition is true
     #Handling input:
@@ -139,8 +143,10 @@ while True:#A loop that runs while condition is true
     #Draw screen, light grey for color, 1ºTuple is half of screen W, and '0' for middle of top. Then, the 2ºTuple is half of screen W and 'screen height' for the middle of the bottom of window:
     pygame.draw.aaline(screen, light_grey, (screen_width/2,0), (screen_width/2,screen_height))
 
-    if score_time:
-        ball_restart()
+
+    #At the beginning, 'score_time' is set none, so this would not be running until its true:
+    if score_time:#If the 'score_time' value is evaluates to true
+        ball_restart()#Then runs the ball start function (to restart the ball position)
 
     #Creates the surface where the text will be display on:
     #The first argument is what the text is supposed to be, the second one is for if the text is entirely iced or not, then the last one is for the color (both for player and opponent):
