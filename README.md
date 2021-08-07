@@ -4,3 +4,6 @@
 * Window name and Screen size;
 * Draw the ball and rectangles;
 * Ball animation and screen bounds/colision;
+* Player command inputs;
+* Opponent 'AI';
+* Basic Scoring.
