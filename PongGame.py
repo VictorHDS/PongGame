@@ -1,4 +1,4 @@
-#Import 'pygame' to create a game, 'sys' to access other system functions from the computer itself, and 'random' to randomize things (variables generation, ranges, sequences etc):
+#Import 'pygame' to create a game, 'sys' to access other system functions from the computer itself, and 'random' to randomize things (variables generation, ranges, sequences...):
 import pygame, sys, random
 
 def ball_animation():
@@ -76,10 +76,18 @@ opponent = pygame.Rect(10,screen_height/2 -70,10,140)
 bg_color = pygame.Color('grey12')#pass the string name of a color from available color names
 light_grey = (200,200,200)#set a 'RGB' color value
 
+#Game Variables:
 ball_speed_x = 7 * random.choice((1,-1))#Initial position of the ball in horizontal. Randomize whenever reset
 ball_speed_y = 7 * random.choice((1,-1))#Initial position of the ball in vertical. Randomize whenever reset
 player_speed = 0#The player initial speed
 opponent_speed = 7#The Opponent speed
+
+#Text Variables:
+#When creates texts, the system uses a different frame than the images to display them
+player_score = 0#The initial value of the player's score is 0
+opponent_score = 0#The initial value of the opponent's score is 0
+game_font = pygame.font.Font("freesansbold.ttf",32)#Creates the font for the texts, with the style and font size
+
 
 while True:#A loop that runs while condition is true
     #Handling input:
@@ -108,15 +116,19 @@ while True:#A loop that runs while condition is true
     screen.fill(bg_color)#Draws the background
     pygame.draw.rect(screen, light_grey, player)#Draw the player reactangle
     pygame.draw.rect(screen, light_grey, opponent)#Draw the opponent reactangle
-
     #Instead of filling the whole rect, it uses frame to draw an ellipse into it.
     #Since all sides are the same lenght, this ellipse becomes a circle:
     pygame.draw.ellipse(screen, light_grey, ball)#Draw the ball
-    
     #Creates the line that separates the two sides. It draws a 'anti aliased line'
     #Needs four arguments: Draw, Color, Tuple of Start Point, Tuple of End Point
     #Draw screen, light grey for color, 1ºTuple is half of screen W, and '0' for middle of top. Then, the 2ºTuple is half of screen W and 'screen height' for the middle of the bottom of window:
     pygame.draw.aaline(screen, light_grey, (screen_width/2,0), (screen_width/2,screen_height))
+
+    #Creates the surface where the text will be display on:
+    #The first argument is what the text is supposed to be, the second one is for if the text is entirely iced or not, then the last one is for the color:
+    player_text = game_font.render(f"{player_score}",False,light_grey)
+    #This puts one surface on another:
+    screen.blit(player_text,(660,470))#What and where will be put on other surface
 
     #Updating the window:
     pygame.display.flip()#Takes everything from before the loop and draw a picture of that
