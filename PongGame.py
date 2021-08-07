@@ -60,6 +60,17 @@ def ball_restart():
     current_time = pygame.time.get_ticks()#This score time gets what current time are on right now (is going to get greater)
     #Return the ball to the center of the screen whenever restart:
     ball.center = (screen_width/2, screen_height/2)
+    
+    if current_time - score_time < 700:
+        number_three = game_font.render("3", False, light_grey)
+        screen.blit(number_three,(screen_width/2-10,screen_height/2+20))
+    if 700 < current_time - score_time < 1400:
+        number_two = game_font.render("2", False, light_grey)
+        screen.blit(number_two,(screen_width/2-10,screen_height/2+20))
+    if 1400 < current_time - score_time < 2100:
+        number_one = game_font.render("1", False, light_grey)
+        screen.blit(number_one,(screen_width/2-10,screen_height/2+20))
+
     if current_time - score_time < 2100:#If the current time minus the score time is smaller that 2.1 seconds
         ball_speed_x, ball_speed_y = 0, 0#Then the ball speed is 0 in both axis (so the ball just stays in the middle of the screen)
     else:#If the difference is greater than 2.1s
@@ -152,10 +163,10 @@ while True:#A loop that runs while condition is true
     #The first argument is what the text is supposed to be, the second one is for if the text is entirely iced or not, then the last one is for the color (both for player and opponent):
     player_text = game_font.render(f"{player_score}",False,light_grey)
     #This puts one surface on another:
-    screen.blit(player_text,(560,350))#What and where will be put on other surface
+    screen.blit(player_text,(560,30))#What and where will be put on other surface
     opponent_text = game_font.render(f"{opponent_score}",False,light_grey)
     #This puts one surface on another:
-    screen.blit(opponent_text,(500,350))#What and where will be put on other surface
+    screen.blit(opponent_text,(500,30))#What and where will be put on other surface
 
 
     #Updating the window:
