@@ -125,10 +125,14 @@ while True:#A loop that runs while condition is true
     pygame.draw.aaline(screen, light_grey, (screen_width/2,0), (screen_width/2,screen_height))
 
     #Creates the surface where the text will be display on:
-    #The first argument is what the text is supposed to be, the second one is for if the text is entirely iced or not, then the last one is for the color:
+    #The first argument is what the text is supposed to be, the second one is for if the text is entirely iced or not, then the last one is for the color (both for player and opponent):
     player_text = game_font.render(f"{player_score}",False,light_grey)
     #This puts one surface on another:
-    screen.blit(player_text,(660,470))#What and where will be put on other surface
+    screen.blit(player_text,(560,350))#What and where will be put on other surface
+    opponent_text = game_font.render(f"{opponent_score}",False,light_grey)
+    #This puts one surface on another:
+    screen.blit(opponent_text,(500,350))#What and where will be put on other surface
+
 
     #Updating the window:
     pygame.display.flip()#Takes everything from before the loop and draw a picture of that
