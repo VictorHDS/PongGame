@@ -3,7 +3,7 @@ import pygame, sys, random
 
 def ball_animation():
     #Set these variables to be 'global' to be recognized throughout the code:
-    global ball_speed_x, ball_speed_y, player_score, opponent_score
+    global ball_speed_x, ball_speed_y, player_score, opponent_score, score_time
     #The ball gain +7 to W and H speed:
     ball.x += ball_speed_x
     ball.y += ball_speed_y
@@ -16,10 +16,11 @@ def ball_animation():
     
     if ball.left <= 0:#If the ball is full on left
         player_score += 1#Increase the player score by 1
-        ball_restart()#Restart the ball
+        score_time = pygame.time.get_ticks()
+
     if ball.right >= screen_width:#If the ball is full on right
         opponent_score += 1#Increase the opponent score by 1
-        ball_restart()#Restart the ball
+        score_time = pygame.time.get_ticks()
 
     #If the ball collides with player or opponent:
     if ball.colliderect(player) or ball.colliderect(opponent):
@@ -48,12 +49,20 @@ def opponent_ai():
 
 def ball_restart():
     #Set these variables to be 'global' to be recognized throughout the code
-    global ball_speed_x, ball_speed_y
+    global ball_speed_x, ball_speed_y, score_time
+    
+    current_time = pygame.time.get_ticks()
+    
     #Return the ball to the center of the screen whenever restart:
     ball.center = (screen_width/2, screen_height/2)
-    #Always after ball restart to the center, it'll have speed changed by + or - in both axis, randomly:
-    ball_speed_x *= random.choice((1,-1))
-    ball_speed_y *= random.choice((1,-1))
+    
+    if current_time - score_time < 2100:
+        ball_speed_x, ball_speed_y = 0, 0
+    else:
+         #Always after ball restart to the center, it'll have speed changed by + or - in both axis, randomly:
+         ball_speed_x = 7 * random.choice((1,-1))
+         ball_speed_y = 7 * random.choice((1,-1))
+         score_time = None
 
 #General setup:
 pygame.init()#Initiates all the pygame modules
@@ -92,6 +101,8 @@ player_score = 0#The initial value of the player's score is 0
 opponent_score = 0#The initial value of the opponent's score is 0
 game_font = pygame.font.Font("freesansbold.ttf",32)#Creates the font for the texts, with the style and font size
 
+#Score Timer:
+score_time = None
 
 while True:#A loop that runs while condition is true
     #Handling input:
@@ -127,6 +138,9 @@ while True:#A loop that runs while condition is true
     #Needs four arguments: Draw, Color, Tuple of Start Point, Tuple of End Point
     #Draw screen, light grey for color, 1ºTuple is half of screen W, and '0' for middle of top. Then, the 2ºTuple is half of screen W and 'screen height' for the middle of the bottom of window:
     pygame.draw.aaline(screen, light_grey, (screen_width/2,0), (screen_width/2,screen_height))
+
+    if score_time:
+        ball_restart()
 
     #Creates the surface where the text will be display on:
     #The first argument is what the text is supposed to be, the second one is for if the text is entirely iced or not, then the last one is for the color (both for player and opponent):
