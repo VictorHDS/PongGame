@@ -2,8 +2,8 @@
 import pygame, sys, random
 
 def ball_animation():
-    #Set these variables to be 'global' to be recognized throughout the code
-    global ball_speed_x, ball_speed_y
+    #Set these variables to be 'global' to be recognized throughout the code:
+    global ball_speed_x, ball_speed_y, player_score, opponent_score
     #The ball gain +7 to W and H speed:
     ball.x += ball_speed_x
     ball.y += ball_speed_y
@@ -13,10 +13,14 @@ def ball_animation():
     if ball.top <= 0 or ball.bottom >= screen_height:
         #Then reverse the ball speed in 'y' axis:
         ball_speed_y *= -1
-    #If the ball is full on left or full on right:
-    if ball.left <= 0 or ball.right>= screen_width:
-        #Then reverse the ball speed in 'x' axis:
-        ball_restart()
+    
+    if ball.left <= 0:#If the ball is full on left
+        player_score += 1#Increase the player score by 1
+        ball_restart()#Restart the ball
+    if ball.right >= screen_width:#If the ball is full on right
+        opponent_score += 1#Increase the opponent score by 1
+        ball_restart()#Restart the ball
+
     #If the ball collides with player or opponent:
     if ball.colliderect(player) or ball.colliderect(opponent):
         #Then reverse the ball speed in 'x' axis:
