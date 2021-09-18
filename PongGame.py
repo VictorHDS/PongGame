@@ -11,16 +11,19 @@ def ball_animation():
     #Bouncy:
     #If the ball is full on top or full on bottom:
     if ball.top <= 0 or ball.bottom >= screen_height:
+        pygame.mixer.Sound.play(pong_sound)
         #Then reverse the ball speed in 'y' axis:
         ball_speed_y *= -1
     
     if ball.left <= 0:#If the ball is full on left
+        pygame.mixer.Sound.play(score_sound)
         player_score += 1#Increase the player score by 1
 
         #Get an integer that tells for how long the game has benn running since it was started:
         score_time = pygame.time.get_ticks()#This score time is only going to run once (stays the same)
 
     if ball.right >= screen_width:#If the ball is full on right
+        pygame.mixer.Sound.play(score_sound)
         opponent_score += 1#Increase the opponent score by 1
 
         #Get an integer that tells for how long the game has benn running since it was started:
@@ -28,6 +31,7 @@ def ball_animation():
 
     #If the ball collides with player or opponent:
     if ball.colliderect(player) and ball_speed_x > 0:
+        pygame.mixer.Sound.play(pong_sound)
         if abs(ball.right - player.left) < 10:
             #Then reverse the ball speed in 'x' axis:
             ball_speed_x *= -1
@@ -37,6 +41,7 @@ def ball_animation():
             ball_speed_y *= -1
 
     if ball.colliderect(opponent) and ball_speed_x < 0:
+        pygame.mixer.Sound.play(pong_sound)
         if abs(ball.left - opponent.right) < 10:
             ball_speed_x *= -1
         elif abs(ball.bottom - opponent.top) < 10 and ball_speed_y > 0:
@@ -94,6 +99,7 @@ def ball_restart():
          score_time = None#score time get back to 'none'
 
 #General setup:
+pygame.mixer.pre_init(44100,-16,2,128)
 pygame.init()#Initiates all the pygame modules
 
 #The 'Clock' module is necessary because the computer'll try to run the coda as fast as it can
@@ -129,6 +135,10 @@ opponent_speed = 7#The Opponent speed
 player_score = 0#The initial value of the player's score is 0
 opponent_score = 0#The initial value of the opponent's score is 0
 game_font = pygame.font.Font("freesansbold.ttf",32)#Creates the font for the texts, with the style and font size
+
+#Sound:
+pong_sound = pygame.mixer.Sound('pong.ogg')
+score_sound = pygame.mixer.Sound('score.ogg')
 
 #Score Timer:
 score_time = None#Initialy doesn't do anything
