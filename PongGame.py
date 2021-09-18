@@ -61,6 +61,7 @@ def ball_restart():
     #Return the ball to the center of the screen whenever restart:
     ball.center = (screen_width/2, screen_height/2)
     
+    #Shows the timer under the ball (+20), a little to left (-10), with 'string', anti-aliasing, color:
     if current_time - score_time < 700:
         number_three = game_font.render("3", False, light_grey)
         screen.blit(number_three,(screen_width/2-10,screen_height/2+20))
