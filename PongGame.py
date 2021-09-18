@@ -27,9 +27,22 @@ def ball_animation():
         score_time = pygame.time.get_ticks()#This score time is only going to run once (stays the same)
 
     #If the ball collides with player or opponent:
-    if ball.colliderect(player) or ball.colliderect(opponent):
-        #Then reverse the ball speed in 'x' axis:
-        ball_speed_x *= -1
+    if ball.colliderect(player) and ball_speed_x > 0:
+        if abs(ball.right - player.left) < 10:
+            #Then reverse the ball speed in 'x' axis:
+            ball_speed_x *= -1
+        elif abs(ball.bottom - player.top) < 10 and ball_speed_y > 0:
+            ball_speed_y *= -1
+        elif abs(ball.top - player.bottom) < 10 and ball_speed_y < 0:
+            ball_speed_y *= -1
+
+    if ball.colliderect(opponent) and ball_speed_x < 0:
+        if abs(ball.left - opponent.right) < 10:
+            ball_speed_x *= -1
+        elif abs(ball.bottom - opponent.top) < 10 and ball_speed_y > 0:
+            ball_speed_y *= -1
+        elif abs(ball.top - opponent.bottom) < 10 and ball_speed_y > 0:
+            ball_speed_y *= -1
 
 def player_animation():
     #Increase speed in the 'y' axis of the player:
